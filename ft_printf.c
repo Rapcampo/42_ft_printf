@@ -42,16 +42,12 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-		{
-			i++;
-			ft_base_check(format[i], &args, &length, &i);
-		}
+			ft_base_check(format[++i], &args, &length, &i);
 		else
-		{
 			ft_putchar_len((char)format[i], &length);
-		}
 		i++;
-		va_end (args);
-		return (format);
 	}
+	va_end (args);
+	return (length);
+	
 }
