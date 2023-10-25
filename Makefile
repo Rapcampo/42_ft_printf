@@ -13,7 +13,7 @@
 NAME	=	libftprintf.a
 CC	=	cc
 CFLAGS	=	-Wextra -Werror -Wall
-SRCS =	ft_printf.c 
+SRCS =	ft_printf.c ft_print_nbr.c ft_print_words.c 
 OBJS	=	$(SRCS:.c=.o)
 
 RM	=	rm -f

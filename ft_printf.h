@@ -30,6 +30,6 @@ void	ft_pointer(size_t pointer, int *length);
 void	ft_hexadecimal(unsigned int x, int *length, char which_x);
 void	ft_unsigned_int(unsigned int u, int *length)
 
-int	ft_printf(const char *format, ...);
+int		ft_printf(const char *format, ...);
 
 #endif
