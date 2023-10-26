@@ -12,9 +12,9 @@ void	ft_print_nbr(int nbr, int *length)
 	}
 	else
 	{
-		if (nbr > 9)
-			ft_print_nbr(nbr / 10, length);
-		ft_putchar_len(nbr % 10 + '0', length);
+		if (n > 9)
+			ft_print_nbr(n / 10, length);
+		ft_putchar_len(n % 10 + '0', length);
 	}
 }
 
@@ -24,7 +24,7 @@ void	ft_pointer(size_t pointer, int *length)
 	char	*base_character;
 
 	base_character = "012345689abcdef";
-	auto int i;
+	auto int i = 0;
 	write (1, "0x", 2);
 	(*length) += 2;
 	if (pointer == 0)
@@ -47,7 +47,7 @@ void	ft_hexadecimal(unsigned int x, int *length, char which_x)
 	char	string[25];
 	char	*base_character;
 
-	auto int i;
+	auto int i = 0;
 	if (which_x == 'X')
 		base_character = "012345689ABCDEF";
 	else

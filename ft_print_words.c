@@ -8,7 +8,7 @@ void	ft_putchar_len(char c, int *length)
 
 void	ft_string(char *args, int *length)
 {
-	auto size_t i;
+	auto size_t i = 0;
 	if (!args)
 	{
 		write (1, "(null)", 6);
