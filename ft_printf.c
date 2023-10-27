@@ -6,7 +6,7 @@
 /*   By: rapcampo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:23:19 by rapcampo          #+#    #+#             */
-/*   Updated: 2023/10/24 17:11:15 by rapcampo         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:58:50 by rapcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static void	ft_base_check(char c, va_list *args, int *len, int *i)
 	else if (c == 'p')
 		ft_pointer(va_arg(*args, size_t), len);
 	else if (c == 'd' || c == 'i')
-		ft_print_nbr(va_arg(*args, int), len);
+		ft_print_base(1, va_arg(*args, int), SDECIMAL);
 	else if (c == 'u')
-		ft_unsigned_int(va_arg(*args, unsigned int), len);
+		ft_print_base(1, va_arg(*args, unsigned int), UDECIMAL);
 	else if (c == 'x')
-		ft_hexadecimal(va_arg(*args, unsigned int), len, 'x');
+		ft_print_base(1, va_arg(*args, unsigned int), HEX_LO);
 	else if (c == 'X')
-		ft_hexadecimal(va_arg(*args, unsigned int), len, 'X');
+		ft_print_base(1, va_arg(*args, unsigned int), HEX_UP);
 	else if (c == '%')
 		ft_putchar_len('%', len);
 	else
