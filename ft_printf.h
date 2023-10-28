@@ -17,9 +17,9 @@
 
 # include <unistd.h>
 # include <stdarg.h>
-# include <stdlib.h>
-# include <stddef.h>
-# include <stdio.h>
+//# include <stdlib.h>
+//# include <stddef.h>
+//# include <stdio.h>
 
 //define bases
 
