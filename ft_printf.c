@@ -12,43 +12,80 @@
 
 #include "ft_printf.h"
 
-static void	ft_base_check(char c, va_list *args, int *len, int *i)
+int	ft_char(int c)
 {
-	if (c == 'c')
-		ft_putchar_len(va_arg(*args, int), len);
-	else if (c == 's')
-		ft_string(va_arg(*args, char *), len);
-	else if (c == 'p')
-		ft_pointer(va_arg(*args, size_t), len);
-	else if (c == 'd' || c == 'i')
-		ft_print_base(1, va_arg(*args, int), SDECIMAL);
-	else if (c == 'u')
-		ft_print_base(1, va_arg(*args, unsigned int), UDECIMAL);
-	else if (c == 'x')
-		ft_print_base(1, va_arg(*args, unsigned int), HEX_LO);
-	else if (c == 'X')
-		ft_print_base(1, va_arg(*args, unsigned int), HEX_UP);
-	else if (c == '%')
-		ft_putchar_len('%', len);
+	return (write(1, &c, 1));
+}
+
+int	ft_string(char *str)
+{
+	int	count;
+
+	count = 0;
+	if (!str)
+	{
+		write(1, "(null)", 6);
+		count += 6;
+		return (count);
+	}
+	while (*str)
+	{
+		count += ft_char((int) *str);
+		++str;
+	}
+	return (count);
+}
+
+int	ft_pointer(size_t ptr, const char *base)
+{
+	int	count;
+
+	if (!ptr)
+		return (write(1, "(nil)", 5));
+	count = write(1, "0x", 2);
+	count += ft_print_nbr(1, ptr, base);
+	return (count);
+}
+
+int	print_format(char function, va_list ap)
+{
+	int	count;
+
+	count = 0;
+	if (function == 'c')
+		count += ft_char(va_arg(ap, int));
+	else if (function == 's')
+		count += ft_string(va_arg(ap, char *));
+	else if (function == 'd' || function == 'i')
+		count += ft_print_nbr(1, va_arg(ap, int), SDECIMAL);
+	else if (function == 'x')
+		count += ft_print_nbr(1, va_arg(ap, unsigned int), HEX_LO);
+	else if (function == 'X')
+		count += ft_print_nbr(1, va_arg(ap, unsigned int), HEX_UP);
+	else if (function == 'u')
+		count += ft_print_nbr(1, va_arg(ap, unsigned int), UDECIMAL);
+	else if (function == 'p')
+		count += ft_pointer(va_arg(ap, size_t), HEX_LO);
 	else
-		(*i)--;
+		count += write(1, &function, 1);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	args;
+	va_list	ap;
+	int		count;
 
-	auto int length = 0;
-	auto int i = 0; 
-	va_start (args, format);
-	while (format[i])
+	va_start(ap, format);
+	count = 0;
+	while (*format)
 	{
-		if (format[i] == '%')
-			ft_base_check(format[++i], &args, &length, &i);
+		if (*format == '%')
+			count += print_format(*(++format), ap);
 		else
-			ft_putchar_len((char)format[i], &length);
-		i++;
+			count += write(1, format, 1);
+		++format;
 	}
-	va_end (args);
-	return (length);
+	va_end(ap);
+	return (count);
 }
